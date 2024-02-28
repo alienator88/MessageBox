@@ -8,7 +8,7 @@ if os.path.exists(libdir):
     sys.path.append(libdir)
 
 import logging
-from waveshare_epd import epd2in7
+from lib import epd2in7
 import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
@@ -31,4 +31,4 @@ def newMessageScreen():
     epd.sleep()
 
 newMessageScreen()
-os.system("python buttonListener.py")
+#os.system("python buttonListener.py")
