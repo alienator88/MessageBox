@@ -1,2 +1,2 @@
 # MessageBox
-RaspberryPi Zero W + Waveshare e-Paper HAT for sending messages
+RaspberryPi Zero W + Waveshare e-Paper HAT for sending messages.
