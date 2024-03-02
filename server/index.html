@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>MessageBox</title>
+    <script>
+        function submitForm() {
+            var message = document.getElementById("messageInput").value;
+            var formData = { "message": message };
+
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => {
+                // Handle the response if needed
+                console.log("Message sent successfully");
+            });
+
+            // Prevent the default form submission
+            return false;
+        }
+
+        function getQuoteOfTheDay() {
+            // Use a simple quote API for demonstration
+            fetch('https://api.quotable.io/random')
+            .then(response => response.json())
+            .then(data => {
+                // Send the quote directly to the server script as JSON
+                var quoteMessage = data.content;
+
+                fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: quoteMessage }), // Wrap the quoteMessage in an object
+                })
+                .then(response => {
+                    // Handle the response if needed
+                    console.log("Quote sent successfully");
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching the quote:', error);
+            });
+        }
+
+        function sleepScreen() {
+            fetch('/sleep-screen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}), // Empty JSON as a placeholder, adjust as needed
+            })
+            .then(response => {
+                // Handle the response if needed
+                console.log("Sleep screen command sent successfully");
+            })
+            .catch(error => {
+                console.error('Error sending sleep screen command:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form onsubmit="return submitForm()">
+            <label for="messageInput">Message:</label>
+            <input type="text" id="messageInput" name="message" required>
+        </form>
+        <div class="buttons">
+
+            <div class="action_btn">
+
+            <button class="action_btn submit" onclick="submitForm()" >Send</button>
+            <button class="action_btn quote" onclick="getQuoteOfTheDay()">Quote</button>
+            <button class="action_btn sleep" onclick="sleepScreen()">Clear</button>
+
+            </div>
+
+        </div>
+        <!-- <button onclick="getQuoteOfTheDay()">Quote</button>
+        <button onclick="sleepScreen()">Sleep Screen</button> -->
+    </div>
+</body>
+</html>
